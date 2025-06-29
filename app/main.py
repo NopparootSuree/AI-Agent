@@ -90,7 +90,7 @@ DB_NAME = os.getenv("DB_NAME", "JOBORDER")
 DB_USER = os.getenv("DB_USER", "sa")
 DB_PASSWORD = os.getenv("DB_PASSWORD", "Snc@min123")
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://172.19.0.2:11434")  # Use direct IP
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:1b")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:8b")
 
 # Database connection string
 CONNECTION_STRING = f"DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={DB_SERVER},{DB_PORT};DATABASE={DB_NAME};UID={DB_USER};PWD={DB_PASSWORD};TrustServerCertificate=yes;"

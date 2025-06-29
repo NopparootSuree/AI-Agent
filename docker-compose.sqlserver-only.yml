@@ -1,0 +1,39 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: ai-agent-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Snc@min123
+      - MSSQL_PID=Express
+    ports:
+      - "1436:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sql/sample_data.sql:/tmp/sample_data.sql
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ai-agent-app
+    environment:
+      - DB_SERVER=localhost
+      - DB_PORT=1436
+      - DB_NAME=JOBORDER
+      - DB_USER=sa
+      - DB_PASSWORD=Snc@min123
+      - OLLAMA_URL=http://localhost:11434
+      - OLLAMA_MODEL=qwen3:8b
+    network_mode: "host"
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
+
+networks:
+  ai-agent-network:
+    driver: bridge
