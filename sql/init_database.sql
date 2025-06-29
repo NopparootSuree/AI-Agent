@@ -1,0 +1,95 @@
+-- Create database and table for AI Agent
+-- Run this script in SQL Server Management Studio or sqlcmd
+
+-- Create database if not exists
+IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'JOBORDER')
+BEGIN
+    CREATE DATABASE JOBORDER;
+END
+GO
+
+-- Use the database
+USE JOBORDER;
+GO
+
+-- Create JOBORDER table
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'JOBORDER')
+BEGIN
+    CREATE TABLE JOBORDER (
+        ID INT IDENTITY(1,1) PRIMARY KEY,
+        MAT_TYPE VARCHAR(50) NOT NULL,
+        MAT_GROUP VARCHAR(100) NOT NULL,
+        SAP_ID VARCHAR(50) NOT NULL,
+        PART_NO VARCHAR(100) NOT NULL,
+        PART_NAME VARCHAR(255) NOT NULL,
+        PRD_QTY INT NOT NULL DEFAULT 0,
+        QTY_BOM DECIMAL(10,2) NOT NULL DEFAULT 0,
+        QTY_REQ INT NOT NULL DEFAULT 0,
+        QTY_RECEIVED INT NOT NULL DEFAULT 0,
+        PD_REQ INT NOT NULL DEFAULT 0,
+        PD01 INT NOT NULL DEFAULT 0,
+        PD02 INT NOT NULL DEFAULT 0,
+        PD04 INT NOT NULL DEFAULT 0,
+        PD09 INT NOT NULL DEFAULT 0,
+        WIP_QTY INT NOT NULL DEFAULT 0,
+        REQ_PART INT NOT NULL DEFAULT 0,
+        STOCK_MAIN INT NOT NULL DEFAULT 0,
+        STOCK_NG INT NOT NULL DEFAULT 0,
+        STOCK_UNPACK INT NOT NULL DEFAULT 0,
+        STOCK_SAFETY INT NOT NULL DEFAULT 0,
+        CREATED_AT DATETIME2 DEFAULT GETDATE(),
+        UPDATED_AT DATETIME2 DEFAULT GETDATE()
+    );
+END
+GO
+
+-- Insert sample data
+IF NOT EXISTS (SELECT * FROM JOBORDER)
+BEGIN
+    INSERT INTO JOBORDER (
+        MAT_TYPE, MAT_GROUP, SAP_ID, PART_NO, PART_NAME, 
+        PRD_QTY, QTY_BOM, QTY_REQ, QTY_RECEIVED, PD_REQ, 
+        PD01, PD02, PD04, PD09, WIP_QTY, REQ_PART, 
+        STOCK_MAIN, STOCK_NG, STOCK_UNPACK, STOCK_SAFETY
+    ) VALUES 
+    ('Local', 'Foam', '10030059', '16320300000732', '16320300000732 Top foam', 
+     900, 1, 900, 0, 0, 
+     0, 0, 0, 0, 0, 0, 
+     209454, 0, 0, 0),
+
+    ('Local', 'Foam', '10031549', '12820300000540', 'Volute shell (above)12820300000540', 
+     900, 1, 900, 0, 0, 
+     0, 0, 0, 0, 0, 0, 
+     140384, 0, 0, 0),
+
+    ('SKD', 'Accessory/fitting', '20004212', '10500908000118', 'ADHESIVE 10500908000118', 
+     900, 0.12, 108, 108, 0, 
+     0, 0, 0, 0, 0, 0, 
+     0, 0, 2640, 0),
+
+    ('SKD', 'Accessory/fitting', '20004344', '16120300A34256', 'After-sales service card16120300A34256', 
+     900, 1, 900, 900, 0, 
+     0, 0, 0, 0, 0, 0, 
+     0, 0, 16600, 0),
+
+    ('SKD', 'Accessory/fitting', '10031460', '16020300A32262', 'Backside trademark16020300A32262', 
+     900, 1, 900, 900, 0, 
+     0, 0, 0, 0, 0, 0, 
+     0, 0, 16600, 0);
+END
+GO
+
+-- Show table structure
+SELECT 
+    COLUMN_NAME,
+    DATA_TYPE,
+    IS_NULLABLE,
+    COLUMN_DEFAULT
+FROM INFORMATION_SCHEMA.COLUMNS 
+WHERE TABLE_NAME = 'JOBORDER'
+ORDER BY ORDINAL_POSITION;
+GO
+
+-- Show sample data
+SELECT TOP 5 * FROM JOBORDER;
+GO

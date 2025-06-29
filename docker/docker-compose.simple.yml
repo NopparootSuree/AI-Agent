@@ -1,0 +1,36 @@
+services:
+  # SQL Server 2019 (already running)
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: ai-agent-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Snc@min123
+      - MSSQL_PID=Express
+    ports:
+      - "1436:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+
+  # Ollama without automatic model pull
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-agent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
+  ollama_data:
+
+networks:
+  ai-agent-network:
+    driver: bridge

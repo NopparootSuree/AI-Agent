@@ -1,0 +1,59 @@
+services:
+  # SQL Server 2019
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: ai-agent-sqlserver
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Snc@min123
+      - MSSQL_PID=Express
+    ports:
+      - "1436:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ../sql/sample_data.sql:/tmp/sample_data.sql
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+
+  # Ollama with Qwen3:8b (CPU version)
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-agent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+    # Remove problematic command - use default ollama serve
+
+  # Python FastAPI Application
+  ai-agent:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ai-agent-app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=Server=sqlserver,1433;Database=JOBORDER;Uid=sa;Pwd=Snc@min123;TrustServerCertificate=yes;
+      - OLLAMA_URL=http://ollama:11434
+    depends_on:
+      - sqlserver
+      - ollama
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+    volumes:
+      - ..:/app
+    working_dir: /app
+
+volumes:
+  sqlserver_data:
+  ollama_data:
+
+networks:
+  ai-agent-network:
+    driver: bridge
