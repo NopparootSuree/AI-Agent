@@ -15,24 +15,46 @@ services:
       - ai-agent-network
     restart: unless-stopped
 
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ai-agent-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - ai-agent-network
+    restart: unless-stopped
+    runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,utility
+
   app:
     build:
       context: .
       dockerfile: docker/Dockerfile
     container_name: ai-agent-app
     environment:
-      - DB_SERVER=localhost
-      - DB_PORT=1436
+      - DB_SERVER=sqlserver
+      - DB_PORT=1433
       - DB_NAME=JOBORDER
       - DB_USER=sa
       - DB_PASSWORD=Snc@min123
-      - OLLAMA_URL=http://localhost:11434
-      - OLLAMA_MODEL=qwen2.5:3b
-    network_mode: "host"
+      - OLLAMA_URL=http://ollama:11434
+      - OLLAMA_MODEL=qwen2.5:7b
+    ports:
+      - "8000:8000"
+    depends_on:
+      - sqlserver
+      - ollama
+    networks:
+      - ai-agent-network
     restart: unless-stopped
 
 volumes:
   sqlserver_data:
+  ollama_data:
 
 networks:
   ai-agent-network:

@@ -1,0 +1,78 @@
+<svg width="800" height="320" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="800" height="320" fill="#f8fafc"/>
+    
+    <!-- Title -->
+    <text x="400" y="50" text-anchor="middle" font-size="20" font-weight="bold" fill="#1e293b">AI Agent Local - SQL Query Flow</text>
+    
+    <!-- User Box -->
+    <rect x="50" y="80" width="120" height="60" rx="10" fill="#3b82f6" stroke="#1e40af" stroke-width="2"/>
+    <text x="110" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ผู้ใช้</text>
+    <text x="110" y="125" text-anchor="middle" font-size="12" fill="white">(User)</text>
+    
+    <!-- AI Agent Box -->
+    <rect x="250" y="80" width="120" height="60" rx="10" fill="#10b981" stroke="#047857" stroke-width="2"/>
+    <text x="310" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="white">AI Agent</text>
+    <text x="310" y="125" text-anchor="middle" font-size="12" fill="white">(Local)</text>
+    
+    <!-- SQL Generator Box -->
+    <rect x="450" y="80" width="120" height="60" rx="10" fill="#f59e0b" stroke="#d97706" stroke-width="2"/>
+    <text x="510" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="white">SQL Generator</text>
+    <text x="510" y="115" text-anchor="middle" font-size="11" fill="white">(NL to SQL)</text>
+    <text x="510" y="130" text-anchor="middle" font-size="11" fill="white">Converter</text>
+    
+    <!-- Database Box -->
+    <rect x="630" y="80" width="120" height="60" rx="10" fill="#8b5cf6" stroke="#7c3aed" stroke-width="2"/>
+    <text x="690" y="105" text-anchor="middle" font-size="14" font-weight="bold" fill="white">ฐานข้อมูล</text>
+    <text x="690" y="125" text-anchor="middle" font-size="12" fill="white">(Database)</text>
+    
+    <!-- Response Processor Box -->
+    <rect x="450" y="220" width="120" height="60" rx="10" fill="#ef4444" stroke="#dc2626" stroke-width="2"/>
+    <text x="510" y="240" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Response</text>
+    <text x="510" y="255" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Processor</text>
+    <text x="510" y="270" text-anchor="middle" font-size="11" fill="white">(สรุปผลลัพธ์)</text>
+    
+    <!-- Step Labels -->
+    <text x="400" y="20" text-anchor="middle" font-size="16" font-weight="bold" fill="#64748b">Flow Process</text>
+    
+    <!-- Step 1 Arrow and Label -->
+    <defs>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+      </marker>
+    </defs>
+    
+    <!-- Arrow 1: User to AI Agent -->
+    <line x1="170" y1="110" x2="250" y2="110" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="210" y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">1. คำถาม</text>
+    <text x="210" y="150" text-anchor="middle" font-size="10" fill="#64748b">(Natural Language)</text>
+    
+    <!-- Arrow 2: AI Agent to SQL Generator -->
+    <line x1="370" y1="110" x2="450" y2="110" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="410" y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">2. ประมวลผล</text>
+    <text x="410" y="130" text-anchor="middle" font-size="10" fill="#64748b">(Process)</text>
+    
+    <!-- Arrow 3: SQL Generator to Database -->
+    <line x1="570" y1="110" x2="630" y2="110" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="600" y="100" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">3. SQL</text>
+    <text x="600" y="130" text-anchor="middle" font-size="10" fill="#64748b">(Query)</text>
+    
+    <!-- Arrow 4: Database to Response Processor -->
+    <line x1="690" y1="140" x2="690" y2="190" stroke="#64748b" stroke-width="2"/>
+    <line x1="690" y1="190" x2="570" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="630" y="185" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">4. ผลลัพธ์</text>
+    <text x="630" y="200" text-anchor="middle" font-size="10" fill="#64748b">(Raw Data)</text>
+    
+    <!-- Arrow 5: Response Processor to AI Agent -->
+    <line x1="450" y1="250" x2="370" y2="250" stroke="#64748b" stroke-width="2"/>
+    <line x1="370" y1="250" x2="310" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="375" y="195" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">5. สรุป</text>
+    <text x="375" y="210" text-anchor="middle" font-size="10" fill="#64748b">(Summary)</text>
+    
+    <!-- Arrow 6: AI Agent to User -->
+    <line x1="250" y1="130" x2="170" y2="130" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+    <text x="210" y="170" text-anchor="middle" font-size="11" fill="#64748b" font-weight="bold">6. คำตอบ</text>
+    <text x="210" y="185" text-anchor="middle" font-size="10" fill="#64748b">(Final Answer)</text>
+    
+  
+  </svg>

@@ -25,6 +25,13 @@ services:
     networks:
       - ai-agent-network
     restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
 
   app:
     build:
@@ -38,7 +45,7 @@ services:
       - DB_USER=sa
       - DB_PASSWORD=Snc@min123
       - OLLAMA_URL=http://ollama:11434
-      - OLLAMA_MODEL=qwen3:8b
+      - OLLAMA_MODEL=qwen2.5:3b
     ports:
       - "8000:8000"
     depends_on:

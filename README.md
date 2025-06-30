@@ -2,6 +2,8 @@
 
 AI Agent ที่แปลงคำถามภาษาธรรมชาติ (ไทย/อังกฤษ) เป็น SQL queries สำหรับตาราง JOBORDER
 
+🚀 **GPU Support Available** - ความเร็วเพิ่มขึ้น 5-10 เท่า! ดู [GPU Setup Guide](GPU-SETUP.md)
+
 ## 📁 Project Structure
 
 ```
@@ -39,19 +41,19 @@ AI-Agent/
 
 ## 🚀 Quick Start
 
-### 1. Start Infrastructure
+### 🔥 GPU Setup (Recommended for speed)
 ```bash
-# Option 1: Start services only (recommended)
+# Prerequisites: NVIDIA GPU + NVIDIA Container Toolkit
+./setup-gpu.sh
+```
+
+### 💻 CPU Setup
+```bash
+# Start with Docker (All-in-one)
+docker-compose -f docker-compose.with-ollama.yml up -d
+
+# Manual setup
 docker compose -f docker/docker-compose.services-only.yml up -d
-
-# Option 2: Start specific services
-docker compose -f docker/docker-compose.yml up -d sqlserver
-docker compose -f docker/docker-compose.yml up -d ollama
-
-# Initialize database
-sleep 10
-docker cp sql/init_database.sql ai-agent-sqlserver:/tmp/init_database.sql
-docker exec ai-agent-sqlserver /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'Snc@min123' -C -i /tmp/init_database.sql
 ```
 
 ### 2. Setup Python Environment
